@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: beb14d8b2e2e9d841acc2c6a33188bb8
+timeCreated: 1517349754
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: DEC Terminal Modern
+  fontNames:
+  - DEC Terminal Modern
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

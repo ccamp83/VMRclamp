@@ -1,0 +1,147 @@
+body {
+		font-family: Arial, Helvetica; 
+	}
+
+	#consentForm {
+	  font-size:9pt; 
+	  font-family: Arial, Helvetica; 
+	  padding:10px; 
+	  border:1px dashed gray; 
+	  max-width: 600px; 
+	  margin: 0 auto; 
+	  margin-top: 30px;
+	}
+
+	/* Instructions are presented first */
+	.instruction_pages {
+		max-width: 600px; 
+		margin: 0 auto; 
+		margin-top: 30px; 
+	}
+
+	/* style for intro video and image */
+	.intro_media {
+	    margin: auto;	/* centers */
+	    display: block;	/* shows */
+	}
+
+	/* handles rotation of media */
+	.rotate {
+		margin: auto;
+	}
+
+	/* text within intro images */
+	.baloon1 {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		padding: 2px; 
+		background-color: white;
+		border: 3px solid black;
+		border-radius: 5px;
+	}
+
+	.hoverMsg {
+		margin-left: 25%;
+		margin-right: 25%;
+		padding: 5px; 
+		background-color: white;
+		border: 2px solid black;
+		border-radius: 7px;
+	}
+
+	.loading {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		padding: 2px; 
+		background-color: white;
+	}
+
+	/* continue/startExperiment-Button things */
+	.advanceButton {
+		display: inline-block;
+		color: black; 
+		border: 3px outset gray; 
+		background-color: #CCCCCC; 
+		padding: 8px; 
+		text-decoration: none; 
+		font-family: Arial, Helvetica; 
+		font-weight: bold;
+		margin-top: 30px; 
+	}
+	.advanceButton:hover {
+		border: 3px inset gray; 
+	}
+	.advanceButton:active {
+		border: 3px inset gray; 
+	}
+
+	/* instrucBox */
+	#instrucBox {
+		display: none;
+		margin: 0px auto;
+		margin-bottom: 0px;
+		width: 860px;
+		height: 24px;
+	}
+	#trialNum {
+		float: left;
+		margin-bottom: 5px;
+		width: 200px;
+	}
+
+	/* Trial box */
+	#box {
+		display: none;
+		margin: 0px auto;
+		padding: 10px;
+		width: 890px;
+		height: 430px;
+		border:1px solid gray;
+	}
+	#stimuliField {
+		margin-top: 5px;
+	}
+
+	/* style for video */
+	.center {
+	    margin: auto;	/* centers */
+	    display: block;	/* hides */
+	    cursor: none;	/* hide mouse */
+	}
+
+	/* style for image */
+	.centerHidden {
+		margin: auto;	
+	    display: none;	
+	}
+
+	/* answers instructions */
+	#answersInstr {
+		text-align:center;
+		margin-top: 0px;
+		display: none;
+	}
+
+	/* hide mTurk submit button */
+	/* will be shown at the end of the experiment */
+	#submitButton {
+		display: none;
+	}
+
+	/* end of experiment */
+	#done {
+		display: none;
+		width: 600px; 
+		height: 600px;
+		margin: 0 auto; 
+		margin-top: 30px; 
+	}
+	#doneText {
+		position: absolute;
+		width: 600px;
+		top: 55px;
+		text-align: center;
+		font-size: 20px;
+	}

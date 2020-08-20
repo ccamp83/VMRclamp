@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<!-- CSS functions -->
+<style type="text/css">
+
+  body {
+    font-family: Arial, Helvetica; 
+    background-color: black;
+  }
+
+  #consentForm {
+    background-color: rgb(242,236,201);
+    font-size:9pt; 
+    font-family: Arial, Helvetica; 
+    padding:10px; 
+    border:1px dashed gray; 
+    max-width: 600px; 
+    margin: 0 auto; 
+    margin-top: 30px;
+  }
+
+  #webGLcontent {
+    background-color: black;
+    width: 50%;
+    margin: 0 auto;
+    display: none;
+  }
+
+  #submitButton {
+    display: none;
+  }
+</style>
+
+<html lang="en-us">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>var gameInstance = null;</script>
+    <script src="https://visuomotorrotation.s3.amazonaws.com/mirror/Unity+Build/Build/UnityLoader.js"></script>
+  </head>
+  <body>
+
+    <div id="consentForm">
+      <p><u>Consent to Participate in Research (please scroll to the bottom to accept and continue):</u></p>
+      <p>You are being invited to take part in a research study. Before you decide to participate in this study, it is important that you understand why the research is being done and what it will involve. Please take the time to read the following information carefully. Please ask the researcher if there is anything that is not clear or if you need more information.</p>
+      <p><strong>Purpose of the research:</strong></p>
+      You are being invited to participate in a study of motor and cognitive processes conducted in the Intelligent Performance and Adaptation Laboratory, directed by Professor Jordan Taylor, in the Department of Psychology at Princeton University. The research deals with how people acquire and produce certain motor skills and how visual and auditory information are used to guide actions.
+      <p><strong>Study Procedures:</strong></p>
+      You will be asked to respond to images on a screen using your keyboard and/or mouse. If you decide to participate in this project, please understand that your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time.
+      Your total expected time commitment for this study will vary, but is at maximum one hour.
+      <p><strong>Benefits and Risks:</strong></p>
+      It is important that you understand that there is no direct benefit to you anticipated from your participation in this study.
+      There is a slight chance you may feel frustrated or uncomfortable if the task is difficult for you to do, but you are free to discontinue your participation in the study if you choose. Please let us know if you feel fatigued or uncomfortable at any time during the experiment. 
+      <p><strong>Alternatives</strong></p>
+      The alternative to participating in this particular study is to not participate.
+      <p><strong>Confidentiality:</strong></p> 
+      All records from this study will be kept confidential. Your responses will be kept private, and we will not include any information that will make it possible to identify you in any report we might publish. Research records will be stored securely in a locked cabinet and/or on password-protected computers. The research team will be the only party that will have access to your data. 
+      <p><strong>Compensation:</strong></p>
+      You will be paid an honorarium for participation at a rate of $3 per hour. 
+      <p><strong>Who to contact with questions:</strong></p>
+      PRINCIPAL INVESTIGATOR: Jordan Taylor, PhD | 429 Peretsman-Scully Hall | office: (609) 258-4648 | email: jordanat@princeton.edu | If you have questions regarding your rights as a research subject, or if problems arise which you do not feel you can discuss with the Investigator, please contact the Institutional Review Board at:
+      Assistant Director, Research Integrity and Assurance
+      Phone: (609) 258-8543
+      Email: irb@princeton.edu
+      <p style='text-align: center; font-size: 12pt'><strong>THIS HIT REQUIRES THE USE OF A MOUSE AND CANNOT BE COMPLETED WITH A TABLET OR A CELL PHONE</strong></p>
+
+      <!-- Continue button -->
+      <p style='text-align: center; font-size: 12pt'>
+        <a style="color: black" href='javascript:acceptAndContinue()'><strong>ACCEPT & CONTINUE</strong></a><br>
+        (opens in full screen)
+      </p>
+    </div>
+
+    <div id="webGLcontent">
+      <div
+        id="gameContainer"
+        style="width: 1024px; height: 768px;">
+      </div>
+      <div id="fullScreenLink" class="footer">
+        <p style='text-align: center'><a style='color: white' href='javascript:gameInstance.SetFullscreen(1)'>FULL SCREEN<strong></strong></a></p>
+      </div>
+    </div>
+
+    <div id="IVFields"></div>
+    <div id="DVFields">
+        <input  name="response0" id="responseKey0" type="hidden" value="0">
+        <!-- These are placeholders needed by mturk, the rest is populated in js -->
+      </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+  
+  $('#webGLcontent').hide();  
+
+  function acceptAndContinue() {
+    $('#consentForm').hide();
+    setTimeout(function(){
+      $('#webGLcontent').show();
+      gameInstance = UnityLoader.instantiate("gameContainer", "https://visuomotorrotation.s3.amazonaws.com/mirror/Unity+Build/Build/WebGL.json", {onProgress: handleProgress});
+    }, 0);
+  }
+
+  function handleProgress(gameInstance, progress) {
+  if (!gameInstance.Module)
+    return;
+  if (!gameInstance.logo) {
+    gameInstance.logo = document.createElement("div");
+    gameInstance.logo.className = "logo " + gameInstance.Module.splashScreenStyle;
+    gameInstance.container.appendChild(gameInstance.logo);
+  }
+  if (!gameInstance.progress) {    
+    gameInstance.progress = document.createElement("div");
+    gameInstance.progress.className = "progress " + gameInstance.Module.splashScreenStyle;
+    gameInstance.progress.empty = document.createElement("div");
+    gameInstance.progress.empty.className = "empty";
+    gameInstance.progress.appendChild(gameInstance.progress.empty);
+    gameInstance.progress.full = document.createElement("div");
+    gameInstance.progress.full.className = "full";
+    gameInstance.progress.appendChild(gameInstance.progress.full);
+    gameInstance.container.appendChild(gameInstance.progress);
+  }
+  gameInstance.progress.full.style.width = (100 * progress) + "%";
+  gameInstance.progress.empty.style.width = (100 * (1 - progress)) + "%";
+  if (progress == 1)
+  {
+    gameInstance.logo.style.display = gameInstance.progress.style.display = "none";
+    gameInstance.SetFullscreen(1);
+  }
+}
+
+</script>

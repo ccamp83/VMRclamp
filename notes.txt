@@ -1,0 +1,13 @@
+AWS
+create user
+add to group (?)
+set permissions
+no tags
+
+NODE.JS
+install node.js
+open command prompt and type 
+	npm init     (https://stackoverflow.com/questions/45531633/npm-warn-enoent-enoent-no-such-file-or-directory-open-c-users-nuwanst-packag)
+		accept default options
+	npm install aws-sdk
+

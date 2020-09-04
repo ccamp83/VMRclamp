@@ -54,7 +54,9 @@ public class pointer : MonoBehaviour {
         // toggle visibility on/off
         pointerSpriteR.enabled = isVisible;
 
-        if (hasStartedMoving && !endArea_trial.isPointerOut && isVisible)
+        bool takePointerTime = hasStartedMoving && !endArea_trial.isPointerOut && isVisible;
+
+        if (takePointerTime)
         {
             pointerTime += Time.deltaTime;
         }
@@ -89,12 +91,12 @@ public class pointer : MonoBehaviour {
                 pointerSpriteR.color = new Color(pointerSpriteR.color.r, pointerSpriteR.color.g, pointerSpriteR.color.b, 1f);
             }
 
-            switch(adaptationType)
+            mouseVisibility(mouseDist);
+
+            switch (adaptationType)
             {
                 case "V":
                     {
-                        mouseVisibility(mouseDist);
-
                         //if (mouseDist > 1f)
                         {
                             // move with the mouse
@@ -110,8 +112,6 @@ public class pointer : MonoBehaviour {
                     }
                 case "C":
                     {
-                        mouseVisibility(mouseDist);
-
                         //if (mouseDist > 1f)
                         {
                             // move the pointer upwards by mouseDist
@@ -123,8 +123,6 @@ public class pointer : MonoBehaviour {
                     }
                 case "N":
                     {
-                        mouseVisibility(mouseDist);
-
                         //if (mouseDist > 1f)
                         {
                             // move with the mouse

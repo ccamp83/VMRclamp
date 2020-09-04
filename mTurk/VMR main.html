@@ -37,7 +37,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script>var gameInstance = null;</script>
-    <script src="https://visuomotorrotation.s3.amazonaws.com/mirror/Unity+Build/Build/UnityLoader.js"></script>
+    <script src="https://unitywebgltests.s3.amazonaws.com/VMR+test/Build/UnityLoader.js"></script>
   </head>
   <body>
 
@@ -98,7 +98,7 @@
     $('#consentForm').hide();
     setTimeout(function(){
       $('#webGLcontent').show();
-      gameInstance = UnityLoader.instantiate("gameContainer", "https://visuomotorrotation.s3.amazonaws.com/mirror/Unity+Build/Build/WebGL.json", {onProgress: handleProgress});
+      gameInstance = UnityLoader.instantiate("gameContainer", "https://unitywebgltests.s3.amazonaws.com/VMR+test/Build/Build.json", {onProgress: handleProgress});
     }, 0);
   }
 

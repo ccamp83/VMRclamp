@@ -278,9 +278,9 @@ public class trialManager : MonoBehaviour
                 case 1:
                 case 2:
                 case 3:
-                    pointer.adaptationType = "R";
+                    pointer.adaptationType = "V";
                     targetSpawner.targetPositionIndex = experiment_specs.targetPos[UnityEngine.Random.Range(0, experiment_specs.targetPos.Length)];
-                    pointer.rotation = 45;
+                    pointer.rotation = 0;
                     break;
                 // explanation of timing feedback
                 case 4:

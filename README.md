@@ -3,7 +3,7 @@
 Usage:
 
 1. Download all
-2. Open as a project in Unity (programmed in v2018.4.22f1)
+2. Open as a project in Unity
 3. Build as WebGL<br/>
 	3.1. File > Build Settings...<br/>
 	3.2. Drag the following scenes and arrage them in this order  

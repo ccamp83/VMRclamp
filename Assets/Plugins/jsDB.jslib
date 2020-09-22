@@ -1,31 +1,25 @@
 mergeInto(LibraryManager.library,
 {
-    testRead: function (tableName, token)
+    testFunction: function()
     {
-        var awsConfig =
-        {
-            region: "us-east-2",
-            endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-            accessKeyId: "YOUR ACCESS ID",
-            secretAccessKey: "YOUR SECRET KEY"
-        };
-        AWS.config.update(awsConfig);
-        var docClient = new AWS.DynamoDB.DocumentClient();
+        console.log("test function");
     },
 
-    ReadData: function (tableName, token)
+    ReadData: function (tableName, itemId)
     {
+        console.log("test test");
+        
         var params =
         {
             TableName: Pointer_stringify(tableName),
             Key:
             {
-                "tokenId": Pointer_stringify(token)
-            },
-            AttributesToGet: [
-                "tokenId", "available"
-            ]
+                "subjID": Pointer_stringify(itemId)
+            }
         };
+
+        console.log(params);
+
         var awsConfig =
         {
             region: "us-east-2",
@@ -33,46 +27,92 @@ mergeInto(LibraryManager.library,
             accessKeyId: "YOUR ACCESS ID",
             secretAccessKey: "YOUR SECRET KEY"
         };
+
         AWS.config.update(awsConfig);
+
         var docClient = new AWS.DynamoDB.DocumentClient();
+
+        var returnStr = "Error";
+
         docClient.get(params, function(err, data)
             {
                 if (err)
                 {
-                    var returnStr = "Please enter a valid secret key";
-                    SendMessage('MainMenu', 'ErrorCallback', returnStr);
-                }
-                else if (data.Item == undefined)
-                {
-                    var returnStr = "The token you have entered isn't recognised";
-                    SendMessage('MainMenu', 'ErrorCallback', returnStr);
+                    returnStr = "Error:" + JSON.stringify(err);
+                    console.log(returnStr);
+                    SendMessage('DynamoInterface', 'StringCallback', returnStr);
                 }
                 else
                 {
-                    console.log(data);
-                    var returnStr = JSON.stringify(data.Item);
-                    SendMessage('MainMenu', 'StringCallback', returnStr);
+                    returnStr = "Data Found:" + JSON.stringify(data.Item.NickName);
+                    console.log(data.Item.NickName);
+                    SendMessage('DynamoInterface', 'StringCallback', data.Item.NickName);
                 }
             }
         );
     },
 
-    UpdateToken: function (tableName, token)
+    WriteData: function (tableName, subjID, subjName, x, y, movementTime, movementSpeed, phase, targetPos, adaptType, rotation, trialN)
+    {
+        var params =
+        {
+            TableName: Pointer_stringify(tableName),
+            Item:
+            {
+                "subjID": Pointer_stringify(subjID),
+                "subjName": Pointer_stringify(subjName),
+                "x": Pointer_stringify(x),
+                "y": Pointer_stringify(y),
+                "movementTime": Pointer_stringify(movementTime),
+                "movementSpeed": Pointer_stringify(movementSpeed),
+                "phase": Pointer_stringify(phase),
+                "targetPos": Pointer_stringify(targetPos),
+                "adaptType": Pointer_stringify(adaptType),
+                "rotation": Pointer_stringify(rotation),
+                "trialN": Pointer_stringify(trialN)
+            }
+        };
+
+        var awsConfig =
+        {
+            region: "us-east-2",
+            endpoint: "https://dynamodb.us-east-2.amazonaws.com",
+            accessKeyId: "YOUR ACCESS ID",
+            secretAccessKey: "YOUR SECRET KEY"
+        };
+
+        AWS.config.update(awsConfig);
+        
+        var docClient = new AWS.DynamoDB.DocumentClient();
+        
+        var returnStr = "Error";
+        
+        docClient.put(params, function(err, data)
+        {
+            if (err)
+            {
+                returnStr = "Error:" + JSON.stringify(err, undefined, 2);
+                SendMessage('DynamoInterface', 'StringCallback', returnStr);
+            }
+            else
+            {
+                returnStr = "Data Inserted:" + JSON.stringify(data, undefined, 2);
+                SendMessage('DynamoInterface', 'StringCallback', returnStr);
+            }
+        });
+    },
+
+    DeleteData: function (tableName, itemId)
     {
         var params =
         {
             TableName: Pointer_stringify(tableName),
             Key:
             {
-                "tokenId": Pointer_stringify(token)
-            },
-            UpdateExpression: "set available = :a",
-            ExpressionAttributeValues:
-            {
-                ":a": false
-            },
-            ReturnValues:"UPDATED_NEW"
+                "subjID": Pointer_stringify(itemId)
+            }
         };
+
         var awsConfig =
         {
             region: "us-east-2",
@@ -80,96 +120,75 @@ mergeInto(LibraryManager.library,
             accessKeyId: "YOUR ACCESS ID",
             secretAccessKey: "YOUR SECRET KEY"
         };
+
         AWS.config.update(awsConfig);
+        
         var docClient = new AWS.DynamoDB.DocumentClient();
+        
+        var returnStr = "Error";
+        
+        docClient.delete(params, function(err, data)
+        {
+            if (err)
+            {
+                returnStr = "Error:" + JSON.stringify(err, undefined, 2);
+                SendMessage('DynamoInterface', 'StringCallback', returnStr);
+            }
+            else
+            {
+                returnStr = "Data Deleted:" + JSON.stringify(data, undefined, 2);
+                SendMessage('DynamoInterface', 'StringCallback', returnStr);
+            }
+        });
+    },
+
+    UpdateData: function (tableName, itemId, nickname)
+    {
+        var params =
+        {
+            TableName: Pointer_stringify(tableName),
+            Key:
+            {
+                "subjID": Pointer_stringify(itemId)
+            },
+
+            UpdateExpression: "set NickName = :newName",
+            
+            ExpressionAttributeValues:
+            {
+                ":newName": Pointer_stringify(nickname)
+            },
+            
+            ReturnValues:"UPDATED_NEW"
+        };
+
+        var awsConfig =
+        {
+            region: "us-east-2",
+            endpoint: "https://dynamodb.us-east-2.amazonaws.com",
+            accessKeyId: "YOUR ACCESS ID",
+            secretAccessKey: "YOUR SECRET KEY"
+        };
+
+        AWS.config.update(awsConfig);
+
+        var docClient = new AWS.DynamoDB.DocumentClient();
+
+        var returnStr = "error";
+
         docClient.update(params, function(err, data)
         {
             if (err)
             {
-                console.log(err);
+                returnStr = "Error: " + JSON.stringify(err , undefined, 2);
+                SendMessage('DynamoInterface', 'StringCallback', returnStr);
             }
-            else if (data )
+            else if (data)
             {
-                console.log("tokenId in tokenTable updated");
+                returnStr = "Updated: " + JSON.stringify( data , undefined, 2);
+                SendMessage('DynamoInterface', 'StringCallback', returnStr);
             }
         });
     },
 
-    InsertData: function (tableName, token, trialNum, movementTime, timeData, posxData, poszData)
-    {
-        var params =
-        {
-            TableName: Pointer_stringify(tableName),
-            Item:
-            {
-                "tokenId": Pointer_stringify(token),
-                "trial": Pointer_stringify(trialNum),
-                "mt": Pointer_stringify(movementTime),
-                "time": Pointer_stringify(timeData),
-                "pos_x": Pointer_stringify(posxData),
-                "pos_y": Pointer_stringify(poszData)
-            }
-        };
-        var awsConfig =
-        {
-            region: "us-east-2",
-            endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-            accessKeyId: "YOUR ACCESS ID",
-            secretAccessKey: "YOUR SECRET KEY"
-        };
-        AWS.config.update(awsConfig);
-        var docClient = new AWS.DynamoDB.DocumentClient();
-        var returnStr = "Error";
-        docClient.put(params, function(err, data)
-        {
-            if (err)
-            {
-                returnStr = "Error:" + JSON.stringify(err, undefined, 2);
-                SendMessage('ExperimentController', 'StringCallback', returnStr);
-            }
-            else
-            {
-                returnStr = "Data Inserted:" + JSON.stringify(data, undefined, 2);
-                SendMessage('ExperimentController', 'StringCallback', returnStr);
-            }
-        });
-    },
-
-    InsertUser: function (tableName, token, handedness, consentTime, startTime)
-    {
-        var params =
-        {
-            TableName: Pointer_stringify(tableName),
-            Item:
-            {
-                "tokenId": Pointer_stringify(token),
-                "handedness": Pointer_stringify(handedness),
-                "consentTime": Pointer_stringify(consentTime),
-                "startTime": Pointer_stringify(startTime)
-            }
-        };
-        var awsConfig =
-        {
-            region: "us-east-2",
-            endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-            accessKeyId: "YOUR ACCESS ID",
-            secretAccessKey: "YOUR SECRET KEY"
-        };
-        AWS.config.update(awsConfig);
-        var docClient = new AWS.DynamoDB.DocumentClient();
-        var returnStr = "Error";
-        docClient.put(params, function(err, data)
-        {
-            if (err)
-            {
-                returnStr = "Error:" + JSON.stringify(err, undefined, 2);
-                SendMessage('ExperimentController', 'StringCallback', returnStr);
-            }
-            else
-            {
-                returnStr = "Data Inserted:" + JSON.stringify(data, undefined, 2);
-                SendMessage('ExperimentController', 'StringCallback', returnStr);
-            }
-        });
-    },
 });

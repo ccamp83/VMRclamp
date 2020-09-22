@@ -18,9 +18,21 @@ public class startArea_trial : MonoBehaviour {
 	private trialManager game_manager; // because I need to access NextTrial method
 
     /**** WEBGL VARIABLES ****/
-    [DllImport("__Internal")]
-    private static extern bool testJS(float x, float y, float movementTime, int movementSpeed, string phase, int targetPos, string adaptType, int rotation, int trialN);
+    static string dataTableName = "VMRtemplate"; // must be static to be accepted by WriteData
 
+    [DllImport("__Internal")]
+    private static extern void WriteData(string tableName,
+        string subjID,
+        string subjName,
+        string x,
+        string y,
+        string movementTime,
+        string movementSpeed,
+        string phase,
+        string targetPos,
+        string adaptType,
+        string rotation,
+        string trialN);
 
     void Start (){
         // listens to other classes
@@ -88,7 +100,10 @@ public class startArea_trial : MonoBehaviour {
             string adaptType = experiment_specs.adaptType[trialManager.trialNumber];
             int rotation = experiment_specs.rotation[trialManager.trialNumber];
 
-            testJS(endpointX, endpointY, movTime, endArea_trial.movementSpeed, phase, targetPos, adaptType, rotation, trialManager.trialNumber);
+            WriteData(dataTableName, trialManager.subjName + "_" + trialManager.trialNumber.ToString(), trialManager.subjName,
+                endpointX.ToString(), endpointY.ToString(),
+                movTime.ToString(), endArea_trial.movementSpeed.ToString(),
+                phase, targetPos.ToString(), adaptType, rotation.ToString(), trialManager.trialNumber.ToString());
         }
     }
 

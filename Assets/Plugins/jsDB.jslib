@@ -92,13 +92,15 @@ mergeInto(LibraryManager.library,
             if (err)
             {
                 returnStr = "Error:" + JSON.stringify(err, undefined, 2);
-                SendMessage('DynamoInterface', 'StringCallback', returnStr);
+                //SendMessage('DynamoInterface', 'StringCallback', returnStr);
             }
             else
             {
                 returnStr = "Data Inserted:" + JSON.stringify(data, undefined, 2);
-                SendMessage('DynamoInterface', 'StringCallback', returnStr);
+                //SendMessage('DynamoInterface', 'StringCallback', returnStr);
             }
+
+            console.log(returnStr);
         });
     },
 

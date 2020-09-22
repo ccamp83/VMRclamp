@@ -13,9 +13,5 @@ Usage:
 		Start  
 		Prepare  
 		Exit  
-	3.3. Player Settings...
-4. Upload to server
-5. Edit HTML file to point it to the URL where the files have been uploaded
-6. Run
 
-In the current version, it only saves data through mTurk
+

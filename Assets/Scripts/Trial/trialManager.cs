@@ -80,7 +80,7 @@ public class trialManager : MonoBehaviour
         frameN++;
         time += Time.deltaTime;
         timeArray.Add(time);
-        Debug.Log(timeArray.ToString());
+        // Debug.Log(timeArray.ToArray().ToString());
 
         /*
         string[] timeString = new string[timeArray.Count];

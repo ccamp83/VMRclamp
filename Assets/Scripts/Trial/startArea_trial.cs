@@ -1,5 +1,6 @@
 ﻿// the start area triggers the loading of the next trial, as soon as a mouse-controlled collider enters it
 using UnityEngine;
+using System;
 using System.Runtime.InteropServices;
 // https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html
 
@@ -103,7 +104,29 @@ public class startArea_trial : MonoBehaviour {
             string adaptType = experiment_specs.adaptType[trialManager.trialNumber];
             int rotation = experiment_specs.rotation[trialManager.trialNumber];
 
+            int mouseXPosLength = pointer.mousePosX.ToArray().Length;
+            string[] mouseXPosArray = new string[mouseXPosLength];
+            for(int i = 0; i < mouseXPosLength; i++)
+            {
+                mouseXPosArray[i] = pointer.mousePosX.ToArray()[i].ToString();
+            }
+            string mouseXPos = String.Join(",", mouseXPosArray);
 
+            int mouseYPosLength = pointer.mousePosY.ToArray().Length;
+            string[] mouseYPosArray = new string[mouseYPosLength];
+            for (int i = 0; i < mouseYPosLength; i++)
+            {
+                mouseYPosArray[i] = pointer.mousePosY.ToArray()[i].ToString();
+            }
+            string mouseYPos = String.Join(",", mouseYPosArray);
+
+            int timeArrayLength = trialManager.timeArray.ToArray().Length;
+            string[] timeArray = new string[timeArrayLength];
+            for (int i = 0; i < timeArrayLength; i++)
+            {
+                timeArray[i] = trialManager.timeArray.ToArray()[i].ToString();
+            }
+            string timeStamps = String.Join(",", timeArray);
 
             WriteData(dataTableName,
                 trialManager.subjName + "_" + trialManager.trialNumber.ToString(),
@@ -117,9 +140,9 @@ public class startArea_trial : MonoBehaviour {
                 adaptType,
                 rotation.ToString(),
                 trialManager.trialNumber.ToString(),
-                pointer.mousePosX.ToString(),
-                pointer.mousePosY.ToString(),
-                trialManager.timeArray.ToString());
+                mouseXPos,
+                mouseYPos,
+                timeStamps);
         }
     }
 

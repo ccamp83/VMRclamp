@@ -71,8 +71,14 @@ public class trialManager : MonoBehaviour
         if (trainingTrialN != 20 && trainingTrialN != 24)
         {
             initializeParameters();
-        } else
+        }
+        else
+        {
             isMouseVisible = true;
+        }
+
+        // reset timeArray
+        timeArray = new List<float>();
     }
 
     void Update()

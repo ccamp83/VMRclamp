@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class pointer : MonoBehaviour {
 
@@ -12,6 +13,8 @@ public class pointer : MonoBehaviour {
     float mouseDist;
     bool pointerFeedback = false;
     public static Vector3 mousePos;
+    public static List<float> mousePosX = new List<float>();
+    public static List<float> mousePosY = new List<float>();
 
     // private variables
     public static SpriteRenderer pointerSpriteR;
@@ -31,7 +34,11 @@ public class pointer : MonoBehaviour {
         pointerTime = 0;
         isVisible = true;
         hasStartedMoving = false;
-	}
+
+        // reset mouse positions
+        mousePosX = new List<float>();
+        mousePosY = new List<float>();
+    }
 
     private void OnDrawGizmos()
     {
@@ -76,6 +83,9 @@ public class pointer : MonoBehaviour {
             {
                 pointerSpriteR.color = new Color(pointerSpriteR.color.r, pointerSpriteR.color.g, pointerSpriteR.color.b, 0);
             }
+
+            mousePosX.Add(mousePos.x);
+            mousePosY.Add(mousePos.y);
 
             //Debug.Log(endArea_trial.isPointerOut);
             // cursor disappears as soon as it passes the target

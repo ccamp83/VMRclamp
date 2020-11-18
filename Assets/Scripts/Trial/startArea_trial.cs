@@ -32,7 +32,10 @@ public class startArea_trial : MonoBehaviour {
         string targetPos,
         string adaptType,
         string rotation,
-        string trialN);
+        string trialN,
+        string mouseX,
+        string mouseY,
+        string time);
 
     void Start (){
         // listens to other classes
@@ -100,10 +103,23 @@ public class startArea_trial : MonoBehaviour {
             string adaptType = experiment_specs.adaptType[trialManager.trialNumber];
             int rotation = experiment_specs.rotation[trialManager.trialNumber];
 
-            WriteData(dataTableName, trialManager.subjName + "_" + trialManager.trialNumber.ToString(), trialManager.subjName,
-                endpointX.ToString(), endpointY.ToString(),
-                movTime.ToString(), endArea_trial.movementSpeed.ToString(),
-                phase, targetPos.ToString(), adaptType, rotation.ToString(), trialManager.trialNumber.ToString());
+
+
+            WriteData(dataTableName,
+                trialManager.subjName + "_" + trialManager.trialNumber.ToString(),
+                trialManager.subjName,
+                endpointX.ToString(),
+                endpointY.ToString(),
+                movTime.ToString(),
+                endArea_trial.movementSpeed.ToString(),
+                phase,
+                targetPos.ToString(),
+                adaptType,
+                rotation.ToString(),
+                trialManager.trialNumber.ToString(),
+                pointer.mousePosX.ToString(),
+                pointer.mousePosY.ToString(),
+                trialManager.timeArray.ToString());
         }
     }
 

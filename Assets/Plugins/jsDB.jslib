@@ -52,7 +52,7 @@ mergeInto(LibraryManager.library,
         );
     },
 
-    WriteData: function (tableName, subjID, subjName, x, y, movementTime, movementSpeed, phase, targetPos, adaptType, rotation, trialN)
+    WriteData: function (tableName, subjID, subjName, x, y, movementTime, movementSpeed, phase, targetPos, adaptType, rotation, trialN, mouseX, mouseY, time)
     {
         var params =
         {
@@ -69,7 +69,10 @@ mergeInto(LibraryManager.library,
                 "targetPos": Pointer_stringify(targetPos),
                 "adaptType": Pointer_stringify(adaptType),
                 "rotation": Pointer_stringify(rotation),
-                "trialN": Pointer_stringify(trialN)
+                "trialN": Pointer_stringify(trialN),
+                "mouseX": Pointer_stringify(mouseX),
+                "mouseY": Pointer_stringify(mouseY),
+                "time": Pointer_stringify(time)
             }
         };
 
@@ -77,8 +80,8 @@ mergeInto(LibraryManager.library,
         {
             region: "us-east-2",
             endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-            accessKeyId: "YOUR ACCESS ID",
-            secretAccessKey: "YOUR SECRET KEY"
+            accessKeyId: "AKIA3OG3TLYSAZFZ65UU",
+            secretAccessKey: "XzRyggtxFQ5WBrV78d4q6aGzh0DP39Cx9WBJxu1h"
         };
 
         AWS.config.update(awsConfig);

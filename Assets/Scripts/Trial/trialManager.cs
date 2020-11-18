@@ -9,7 +9,7 @@
 // specs are stored in experiment_specs.cs
 
 /**** TRAINING MODE NAMESPACES ****/
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
@@ -44,10 +44,14 @@ public class trialManager : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void stopFullScreen();
 
+    int frameN = 0;
+    float time = 0;
     float elapsedTime = 0;
     Text please_move_alert;
     bool trainingTrial20started = false;
     bool trainingTrial24started = false;
+
+    public static List<float> timeArray = new List<float>();
 
     void Awake()
     {
@@ -73,6 +77,22 @@ public class trialManager : MonoBehaviour
 
     void Update()
     {
+        frameN++;
+        time += Time.deltaTime;
+        timeArray.Add(time);
+        Debug.Log(timeArray.ToString());
+
+        /*
+        string[] timeString = new string[timeArray.Count];
+        int counter = 0;
+        foreach(float item in timeArray)
+        {
+            timeString[counter] = item.ToString();
+            counter++;
+        }
+        Debug.Log(timeString);
+        */
+
         if (trainingTrialN == 20)
         {
             if (Input.GetMouseButtonDown(0) && !trainingTrial20started)

@@ -66,8 +66,8 @@ mergeInto(LibraryManager.library,
         {
             region: "us-east-2",
             endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-            accessKeyId: "AKIA3OG3TLYSJQKT62OR",
-            secretAccessKey: "KwPZWNfkqNRNzg6ms/0pja+qnnV3xyw9HfCLJ+8s"
+            accessKeyId: "YOUR ACCESS ID",
+            secretAccessKey: "YOUR SECRET KEY"
         };
 
         AWS.config.update(awsConfig);
